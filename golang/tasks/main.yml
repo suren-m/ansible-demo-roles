@@ -1,0 +1,22 @@
+---
+# tasks file for golang
+---
+# wget "https://dl.google.com/go/$(curl https://golang.org/VERSION?m=text).linux-amd64.tar.gz"
+
+- name: Get latest go version
+  uri:
+    url: https://golang.org/VERSION?m=text
+    return_content: yes
+  register: goversion
+
+- name: target go version
+  set_fact:
+    target_version: '{{ goversion.content | default("go1.15.6") }}'
+
+- debug: var=target_version
+
+- name: Download and unarchive Go
+  unarchive:
+    src: "https://dl.google.com/go/{{ target_version }}.linux-amd64.tar.gz"
+    dest: /usr/local
+    remote_src: yes
