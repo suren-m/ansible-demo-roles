@@ -1,7 +1,5 @@
 ---
 # tasks file for golang
----
-# wget "https://dl.google.com/go/$(curl https://golang.org/VERSION?m=text).linux-amd64.tar.gz"
 
 - name: Get latest go version
   uri:
